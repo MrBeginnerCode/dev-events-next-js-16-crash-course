@@ -21,7 +21,7 @@ const EventCard = ({image,title,slug, time,location, date}:Props) => {
         });
     };
     return (
-        <Link href = "/events/${slug}" id = "event-card" onClick={handleClick}>
+        <Link href = {`/events/${slug}`} id = "event-card" onClick={handleClick}>
             <Image src ={image} alt = {title} width = {410} height = {310}/>
             <div className = "flex flex-row gap-2">
                 <Image src = '/icons/pin.svg' alt ="location" width={14} height = {14}/>

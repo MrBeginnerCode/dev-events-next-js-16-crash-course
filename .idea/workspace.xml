@@ -8,7 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4890aaed-a3c2-4c29-900e-2456aeb8f3fb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/api/events/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/events/[slug]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/bookEvent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/actions/event.actions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/EventCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/EventCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,67 +35,71 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.6396689368023027" />
-      <entry key="MS500" value="3.8782898224757636" />
-      <entry key="S2" value="6.487726514696159" />
-      <entry key="S5" value="11.230005505938045" />
-      <entry key="S10" value="16.39806341751443" />
-      <entry key="S30" value="22.578111319934965" />
-      <entry key="S60" value="24.653348746934444" />
-      <entry key="M2" value="25.790547146505272" />
-      <entry key="M5" value="26.507249819623425" />
-      <entry key="M10" value="26.752104456917735" />
-      <entry key="M15" value="26.834396501958718" />
-      <entry key="M30" value="26.91703166642867" />
-      <entry key="H1" value="26.99046040012" />
-      <entry key="H2" value="30.41734784872488" />
-      <entry key="H4" value="65.7284288908218" />
-      <entry key="D1" value="337.63185415829594" />
-      <entry key="W1" value="473.9550888689548" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.000000000114503" />
+      <entry key="S2" value="1.0059994943973074" />
+      <entry key="S5" value="1.2647792931506372" />
+      <entry key="S10" value="2.039772083792063" />
+      <entry key="S30" value="4.226327811004887" />
+      <entry key="S60" value="5.899257155150227" />
+      <entry key="M2" value="7.71115460838159" />
+      <entry key="M5" value="10.097954461327399" />
+      <entry key="M10" value="12.965070979488491" />
+      <entry key="M15" value="16.720852331859845" />
+      <entry key="M30" value="33.549513790653165" />
+      <entry key="H1" value="76.10115901660424" />
+      <entry key="H2" value="145.26110699633128" />
+      <entry key="H4" value="226.019134667936" />
+      <entry key="D1" value="716.9003532564843" />
+      <entry key="W1" value="1216.6412418082573" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.6525634993143625E-18" />
-      <entry key="MS500" value="2.7773565133606086E-4" />
-      <entry key="S2" value="0.12909454994497757" />
-      <entry key="S5" value="0.44092341572060334" />
-      <entry key="S10" value="0.6640206440470078" />
-      <entry key="S30" value="0.8724231754414462" />
-      <entry key="S60" value="0.9340359604648241" />
-      <entry key="M2" value="0.966455358754259" />
-      <entry key="M5" value="0.9864446446326626" />
-      <entry key="M10" value="0.99319919685462" />
-      <entry key="M15" value="0.9954609766500152" />
-      <entry key="M30" value="0.9977280595730469" />
-      <entry key="H1" value="0.9998117336071783" />
-      <entry key="H2" value="1.076009208415326" />
-      <entry key="H4" value="1.7087285140931516" />
-      <entry key="D1" value="5.744313798661907" />
-      <entry key="W1" value="7.620122683368523" />
+      <entry key="MS100" value="2.861031162070751E-76" />
+      <entry key="MS500" value="7.785822842585631E-16" />
+      <entry key="S2" value="1.6704217240174637E-4" />
+      <entry key="S5" value="0.03084114205893307" />
+      <entry key="S10" value="0.1756164855966878" />
+      <entry key="S30" value="0.5628298322855905" />
+      <entry key="S60" value="0.8018294078824874" />
+      <entry key="M2" value="1.113212595349908" />
+      <entry key="M5" value="1.6994478420653671" />
+      <entry key="M10" value="2.225615412309364" />
+      <entry key="M15" value="2.67185692586336" />
+      <entry key="M30" value="4.408155946358293" />
+      <entry key="H1" value="8.218781703398408" />
+      <entry key="H2" value="13.484289613083005" />
+      <entry key="H4" value="19.071863671937628" />
+      <entry key="D1" value="46.771176923073604" />
+      <entry key="W1" value="67.9253722354041" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.568099446261011" />
-      <entry key="MS500" value="3.830455353147654" />
-      <entry key="S2" value="6.52764142649269" />
-      <entry key="S5" value="11.539749358992243" />
-      <entry key="S10" value="16.955560913761403" />
-      <entry key="S30" value="23.400857363772104" />
-      <entry key="S60" value="25.56032755967234" />
-      <entry key="M2" value="26.742879170648767" />
-      <entry key="M5" value="27.487896932220288" />
-      <entry key="M10" value="27.742379719330554" />
-      <entry key="M15" value="27.827902560761583" />
-      <entry key="M30" value="27.913779443937965" />
-      <entry key="H1" value="27.989780603226535" />
-      <entry key="H2" value="31.493072006374955" />
-      <entry key="H4" value="67.43677923412085" />
-      <entry key="D1" value="343.37573518114493" />
-      <entry key="W1" value="481.5751205487975" />
+      <entry key="MS100" value="5.1093406936633875E-12" />
+      <entry key="MS500" value="0.005516618781656501" />
+      <entry key="S2" value="0.2765200603110486" />
+      <entry key="S5" value="0.8449906622846786" />
+      <entry key="S10" value="1.8852485332120323" />
+      <entry key="S30" value="4.579677279772187" />
+      <entry key="S60" value="6.561539331632686" />
+      <entry key="M2" value="8.740369989558177" />
+      <entry key="M5" value="11.757268519544159" />
+      <entry key="M10" value="15.166590547053994" />
+      <entry key="M15" value="19.372341190226578" />
+      <entry key="M30" value="37.937018710039965" />
+      <entry key="H1" value="84.29751190337656" />
+      <entry key="H2" value="158.72530704690865" />
+      <entry key="H4" value="245.07614006336053" />
+      <entry key="D1" value="763.665758578563" />
+      <entry key="W1" value="1284.5654526401952" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -126,7 +139,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "database-models",
+    "git-widget-placeholder": "api-route",
     "javascript.preferred.runtime.type.id": "node",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
@@ -185,5 +198,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge pull request #3 from MrBeginnerCode/database-models&#10;&#10;make a check for the env only if we need to use it" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
