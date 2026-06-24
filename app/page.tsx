@@ -7,8 +7,8 @@ import {cacheLife} from 'next/cache'
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 
                  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 const Page = async() => {
-    'use cache';
-    cacheLife('hours')
+    // 'use cache';
+    // cacheLife('hours')
 
     const response = await fetch(`${BASE_URL}/api/events`,{
     next: { revalidate: 3600 } // Tự động cache trong vòng 1 tiếng, tương đương với 'hours'
