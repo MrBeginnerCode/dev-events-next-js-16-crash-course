@@ -6,6 +6,9 @@ import BookEvent from "@/components/bookEvent";
 import {IEvent} from "@/database/event.model";
 import {getSimilarEventBySLug} from "@/lib/actions/event.actions";
 import EventCard from '@/components/EventCard';
+import {cache} from "react";
+import {cacheLife} from 'next/cache';
+import { Suspense } from 'react';
 const EventDetailedItem = ({icon, alt,label}: {icon : string; alt:string;label :string})=> (
     <div className ="flex items-center gap-2">
         <Image src = {icon} alt={alt} height ={17} width ={17}/>
@@ -31,11 +34,13 @@ const EventTag = ({tags}:{tags:string[]}) => (
 )
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const EventDetailPage = async({params}:{params:Promise<{slug:string}>}) => {
+    'use cache'
+    cacheLife('hours');
     const {slug} = await params;
     const request = await fetch(`${BASE_URL}/api/events/${slug}`,{
         next: {revalidate: 60}
     });
-    const {event:{description,image,overview,date,time,location,mode,agenda,audience,organizer,tags }} = await request.json();
+    const {event:{_id,description,image,overview,date,time,location,mode,agenda,audience,organizer,tags }} = await request.json();
     if (!description) return notFound();
     const bookings = 10;
     const SimilarEvents : IEvent[] = await getSimilarEventBySLug(slug);
@@ -84,16 +89,29 @@ const EventDetailPage = async({params}:{params:Promise<{slug:string}>}) => {
                                 Be the first to book your spot!
                             </p>
                         )}
-                        <BookEvent />
+                        <Suspense fallback={<p>Loading form...</p>
+                        }>
+                            <BookEvent eventId={_id?.toString()} slug={slug}/>
+                        </Suspense>
                     </div>
                 </aside>
             </div>
             <div className = 'flex w-full flex-col gap-4 pt-20'>
                 <h2> Similar Events</h2>
                 <div className={"events"}>
-                    {SimilarEvents.length > 0 && SimilarEvents.map((SimilarEvent: IEvent)=>(
-                        <EventCard key = {(SimilarEvent.title)}{...SimilarEvent}/>
-                    ))}
+                    {SimilarEvents.length > 0 &&
+                        SimilarEvents.map((event: IEvent) => (
+                            <EventCard
+                            key={event._id.toString()}
+                            title={event.title}
+                            image={event.image}
+                            slug={event.slug}
+                            location={event.location}
+                            date={event.date}
+                            time={event.time}
+                            />
+                        ))
+                        }
                 </div>
             </div>
         </section>
