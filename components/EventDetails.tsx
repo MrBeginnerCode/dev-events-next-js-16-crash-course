@@ -8,6 +8,8 @@ import {getSimilarEventBySLug} from "@/lib/actions/event.actions";
 import EventCard from '@/components/EventCard';
 import {cacheLife} from 'next/cache';
 import { Suspense } from 'react';
+import connectDB from "@/lib/mongodb"; // 1. Import kết nối DB
+import { Event } from "@/database/event.model"; // 2. Import model
 
 const EventDetailedItem = ({icon, alt,label}: {icon : string; alt:string;label :string})=> (
     <div className ="flex items-center gap-2">
@@ -33,36 +35,29 @@ const EventTag = ({tags}:{tags:string[]}) => (
     </div>
 )
 
-// Đảm bảo BASE_URL tự động nhận diện domain Production nếu biến môi trường bị lỗi
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 
-                 (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
-
-// GIỮ NGUYÊN KIỂU DỮ LIỆU Promise<string> THEO Ý BẠN
+// GIỮ NGUYÊN KIỂU DỮ LIỆU Promise<string> THEO ĐÚNG Ý BẠN
 const EventDetails = async ({params}: {params: Promise<string>}) => {
 
     'use cache'
-    cacheLife('seconds'); // Đồng bộ theo giây tương thích với cấu hình Turbopack tĩnh lúc build
+    cacheLife('seconds'); 
     
-    // Đợi giải nén Promise lấy chuỗi slug thật
+    // Đợi giải nén Promise lấy chuỗi slug thật từ params truyền xuống
     const slug = await params;
     
     let eventData: any = null;
 
     try {
-        // Thực hiện gọi fetch an toàn bằng URL tuyệt đối
-        const request = await fetch(`${BASE_URL}/api/events/${slug}`, {
-            next: { revalidate: 60 }
-        });
-        
-        if (request.ok) {
-            const data = await request.json();
-            eventData = data.event;
+        // 3. CHỌC THẲNG VÀO DATABASE ĐỂ LẤY DATA
+        await connectDB();
+        const data = await Event.findOne({ slug }).lean();
+        if (data) {
+            eventData = JSON.parse(JSON.stringify(data));
         }
     } catch (error) {
-        console.error("Lỗi Fetch API chi tiết event trên Vercel:", error);
+        console.error("Lỗi truy vấn trực tiếp DB:", error);
     }
 
-    // Nếu không fetch được data hoặc data trống, trả về trang 404 thay vì làm sập web
+    // Nếu không tìm thấy hoặc data rỗng, trả về trang 404
     if (!eventData || !eventData.description) return notFound();
 
     const { _id, description, image, overview, date, time, location, mode, agenda, audience, organizer, tags } = eventData;
