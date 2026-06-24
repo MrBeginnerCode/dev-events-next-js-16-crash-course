@@ -4,10 +4,12 @@ import EventCard from "@/components/EventCard";
 import { IEvent } from "@/database";
 import connectDB from "@/lib/mongodb";
 import { Event } from "@/database/event.model";
-
-export const dynamic = "force-dynamic"; // Đảm bảo luôn lấy data mới nhất từ DB
+import {cacheLife} from 'next/cache'
+// export const dynamic = "force-dynamic"; // Đảm bảo luôn lấy data mới nhất từ DB
 
 const Page = async () => {
+    'use cache';
+    cacheLife('seconds');
     let events: IEvent[] = [];
     
     try {
