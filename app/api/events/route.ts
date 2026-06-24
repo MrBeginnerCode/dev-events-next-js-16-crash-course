@@ -2,6 +2,7 @@ import {NextRequest,NextResponse} from "next/server";
 import connectDB from "@/lib/mongodb"
 import {Event} from "@/database/event.model";
 import {v2 as cloudinary} from 'cloudinary'
+import {getPostHogClient} from "@/lib/posthog-server"
 export async function POST(req : NextRequest){
     try {
         await connectDB();
@@ -37,6 +38,18 @@ export async function POST(req : NextRequest){
             ...event,
             tags:tags,
             agenda:agenda,
+        });
+
+        const posthog = getPostHogClient();
+        posthog.capture({
+            distinctId: 'server',
+            event: 'event_created',
+            properties: {
+                event_slug: createEvent.slug,
+                event_title: createEvent.title,
+                tags: createEvent.tags,
+                mode: createEvent.mode,
+            },
         });
 
         return NextResponse.json({message: 'Event created', event: createEvent}, {status : 201});
