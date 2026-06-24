@@ -10,7 +10,9 @@ const Page = async() => {
     'use cache';
     cacheLife('hours')
 
-    const response = await fetch(`${BASE_URL}/api/events`);
+    const response = await fetch(`${BASE_URL}/api/events`,{
+    next: { revalidate: 3600 } // Tự động cache trong vòng 1 tiếng, tương đương với 'hours'
+});
     const {events} = await response.json();
 
     return (
